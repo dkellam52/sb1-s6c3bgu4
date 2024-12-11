@@ -1,0 +1,43 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Checkout">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+
+    <ScrollView>
+        <StackLayout class="p-4">
+            <Label text="Delivery Method" class="text-xl font-bold mb-4" />
+            <StackLayout class="mb-4">
+                <StackLayout orientation="horizontal" class="mb-2">
+                    <RadioButton checked="{{ isPickup }}" text="Pickup" />
+                    <RadioButton checked="{{ !isPickup }}" text="Delivery" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout visibility="{{ isPickup ? 'collapsed' : 'visible' }}" class="mb-4">
+                <Label text="Delivery Address" class="text-lg font-semibold mb-2" />
+                <TextField hint="Street Address" text="{{ address.street }}" class="mb-2" />
+                <TextField hint="City" text="{{ address.city }}" class="mb-2" />
+                <TextField hint="State" text="{{ address.state }}" class="mb-2" />
+                <TextField hint="ZIP Code" text="{{ address.zip }}" keyboardType="number" />
+            </StackLayout>
+
+            <Label text="Order Summary" class="text-xl font-bold mb-4" />
+            <ListView items="{{ orderItems }}" height="200">
+                <ListView.itemTemplate>
+                    <GridLayout columns="*, auto" class="p-2">
+                        <Label col="0" text="{{ menuItem.name + ' x' + quantity }}" />
+                        <Label col="1" text="{{ '$' + (menuItem.price * quantity) }}" />
+                    </GridLayout>
+                </ListView.itemTemplate>
+            </ListView>
+
+            <StackLayout class="mt-4">
+                <Label text="{{ 'Subtotal: $' + subtotal }}" class="text-lg" />
+                <Label text="{{ 'Delivery Fee: $' + deliveryFee }}" class="text-lg" visibility="{{ isPickup ? 'collapsed' : 'visible' }}" />
+                <Label text="{{ 'Total: $' + total }}" class="text-xl font-bold" />
+            </StackLayout>
+
+            <Button text="Place Order" tap="{{ placeOrder }}" class="bg-green-500 text-white mt-4" />
+        </StackLayout>
+    </ScrollView>
+</Page>

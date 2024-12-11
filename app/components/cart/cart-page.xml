@@ -1,0 +1,32 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Cart">
+        <NavigationButton text="Back" android.systemIcon="ic_menu_back" />
+    </ActionBar>
+    
+    <GridLayout rows="*, auto" class="p-4">
+        <ListView row="0" items="{{ cartItems }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="*, auto, auto" class="p-4 border-b border-gray-200">
+                    <StackLayout col="0">
+                        <Label text="{{ menuItem.name }}" class="text-lg font-semibold" />
+                        <Label text="{{ '$' + menuItem.price }}" class="text-green-600" />
+                    </StackLayout>
+                    <StackLayout col="1" orientation="horizontal" class="mx-2">
+                        <Button text="-" tap="{{ $parent.decreaseQuantity }}" class="w-8 h-8" />
+                        <Label text="{{ quantity }}" class="mx-2 text-lg" />
+                        <Button text="+" tap="{{ $parent.increaseQuantity }}" class="w-8 h-8" />
+                    </StackLayout>
+                    <Button col="2" text="Remove" tap="{{ $parent.removeItem }}" class="text-red-500" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+
+        <StackLayout row="1" class="p-4 bg-gray-100">
+            <Label text="{{ 'Total: $' + total }}" class="text-xl font-bold mb-4" />
+            <StackLayout orientation="horizontal" class="justify-between">
+                <Button text="Continue Shopping" tap="{{ goToMenu }}" class="w-48" />
+                <Button text="Checkout" tap="{{ goToCheckout }}" class="w-48 bg-green-500 text-white" isEnabled="{{ hasItems }}" />
+            </StackLayout>
+        </StackLayout>
+    </GridLayout>
+</Page>

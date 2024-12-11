@@ -1,0 +1,25 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo">
+    <ActionBar title="Menu">
+        <ActionItem position="right" text="Cart" tap="{{ goToCart }}" />
+    </ActionBar>
+    
+    <GridLayout rows="auto, *">
+        <StackLayout row="0" class="p-4 bg-gray-100">
+            <SearchBar hint="Search menu items..." text="{{ searchQuery }}" />
+        </StackLayout>
+        
+        <ListView row="1" items="{{ menuItems }}" class="list-group">
+            <ListView.itemTemplate>
+                <GridLayout columns="auto, *, auto" class="p-4 border-b border-gray-200">
+                    <Image col="0" src="{{ imageUrl }}" width="60" height="60" class="rounded-lg" />
+                    <StackLayout col="1" class="ml-4">
+                        <Label text="{{ name }}" class="text-lg font-semibold" />
+                        <Label text="{{ description }}" class="text-gray-600" textWrap="true" />
+                        <Label text="{{ '$' + price }}" class="text-green-600" />
+                    </StackLayout>
+                    <Button col="2" text="Add" tap="{{ $parent.onAddToCart }}" class="bg-blue-500 text-white rounded-lg px-4" />
+                </GridLayout>
+            </ListView.itemTemplate>
+        </ListView>
+    </GridLayout>
+</Page>
